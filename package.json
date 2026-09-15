@@ -1,0 +1,14 @@
+{
+  "name": "cse340-practice-saunders",
+  "scripts": {
+    "dev": "nodemon --env-file=.env server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
