@@ -1,0 +1,103 @@
+html, body {
+    background-color: lightblue;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: navy;
+    display: flex;
+    flex-direction: column;
+}
+
+body {
+    /* display: flex; */
+    align-self: center;
+    inline-size: 800px;
+    padding-left: 3rem;
+    h1 {
+        font-size: 3rem;
+    }
+    nav {
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+
+            &:hover {
+                color: #0066cc;
+            }
+        }
+    }
+    .about-me {
+        display: flex;
+        flex-direction: column;
+
+        #me {
+            inline-size: 100px;
+            padding: 0 10px;
+            border: none;
+        }
+        ul {
+            list-style-type: none;
+            text-decoration: none;
+            padding-left: 0;
+
+            span {
+                font-size: 1rem;
+            }
+        }
+        li {
+            padding-bottom: 1rem;
+            width: 100%;
+        }
+        img {
+            inline-size: 300px;
+            border: 3px solid navy;
+            border-radius: 8px;
+        }
+        .li-title {
+            font-size: 1.1rem;
+
+        }
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        label {
+            padding: 1rem 0.5rem 0 3px;
+        }
+        input {
+            width: 60%;
+            border-radius: 5px;
+        };
+        textarea {
+            width: 60%;
+            height: 5rem;
+            border-radius: 5px;
+        }
+        button {
+            width: 25%;
+            background-color: navy;
+            color: white;
+            padding: 5px 0;
+            border: 2px solid rgb(63, 76, 88);
+            border-radius: 5px;
+        }
+    }
+}
+footer {
+    #copyright {
+        font-size: 0.8rem;
+        color: black;
+        text-align: right;
+    }
+}
