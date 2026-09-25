@@ -68,31 +68,7 @@ body {
 
         }
     }
-    form {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        label {
-            padding: 1rem 0.5rem 0 3px;
-        }
-        input {
-            width: 60%;
-            border-radius: 5px;
-        };
-        textarea {
-            width: 60%;
-            height: 5rem;
-            border-radius: 5px;
-        }
-        button {
-            width: 25%;
-            background-color: navy;
-            color: white;
-            padding: 5px 0;
-            border: 2px solid rgb(63, 76, 88);
-            border-radius: 5px;
-        }
-    }
+    
     &.blue-theme { background-color: #e3f2fd; }
     &.green-theme { background-color: #e0fde0; }
     &.red-theme { background-color: #ffebee; }

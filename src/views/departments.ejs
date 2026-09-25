@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<main>
+    <h1><%= title %></h1>
+
+    <% Object.entries(departments).forEach(([deptName, courseLIst]) => { %>
+        <section class='departments-group'>
+            <h2><%= deptName %></h2>
+            <ul>
+                <% courseList.forEach(course => { %>
+                    <li>
+                        <a href="/catalog/<%=course.id %>">
+                            <strong><%= course.id %></strong>: <%= course.title %>
+                        </a>
+                        (<%= course.credits %> credits)
+                    </li>
+                <% }); %>
+            </ul>
+        </section>
+    <% }); %>
+</main>
+
+<%- include('partials/footer') %>
