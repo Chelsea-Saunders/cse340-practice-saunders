@@ -3,8 +3,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/catalog.css">
+    
 
-    <% if (NODE_ENV.includes('dev')) { %>
+    <% if (typeof NODE_ENV !== 'undefined' && NODE_ENV.includes('dev')) { %>
         <script>
             // Get the current hostname and port from the browser
             const host = window.location.hostname;

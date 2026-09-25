@@ -93,6 +93,12 @@ body {
             border-radius: 5px;
         }
     }
+    &.blue-theme { background-color: #e3f2fd; }
+    &.green-theme { background-color: #e0fde0; }
+    &.red-theme { background-color: #ffebee; }
+    &.purple-theme { background-color: #e1d6ff; }
+    &.yellow-theme { background-color: #fffdcc;}
+    &.orange-theme { background-color: #ffe3c2;}
 }
 footer {
     #copyright {
