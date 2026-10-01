@@ -76,13 +76,17 @@ const faculty = {
 
 const getFacultyById = (facultyId) => {
     // TODO: Look up faculty member by ID, return null if not found
+    return faculty[facultyId] || null;
 };
 
 const getSortedFaculty = (sortBy) => {
     // TODO: Validate sortBy parameter (name, department, or title), default to 'name' if invalid
-
-    // Create an array of all faculty members
     const facultyArray = [];
+    const validSortOptions = ['name', 'department', 'title'];
+    // Create an array of all faculty members
+    if (!validSortOptions.includes(sortBy)) {
+        sortBy = 'name';
+    }
     for (const key in faculty) {
         // Add each individual faculty object to the array
         facultyArray.push({...faculty[key], id: key});
