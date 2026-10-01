@@ -1,3 +1,28 @@
+ <%- include ('../partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <div class="sort-links">
+        Sort by:
+        <a href="/faculty?sort=name">Name</a> |
+        <a href="/faculty?sort=department">Department</a> |
+        <a href="/faculty?sort=title">Title</a>
+    </div>
+
+    <div class="faculty-template-container">
+        <% faculty.forEach(member => { %>
+            <div class="faculty-template-card">
+                <img src="/images/emoji.png"
+                    alt="Image of <%= member.name %>">
+
+                <p><a href="/faculty/<%= member.id %>"><%= member.name %></a></p>
+                <p class="description"><%= member.title %> - <%= member.department %></p>
+            </div>
+        <% }) %>
+    </div>
+</main>
+<%- include('../partials/footer') %>
+
 <!-- Faculty List Template (src/views/faculty/list.ejs):
 
 Display all faculty members in a grid or list format

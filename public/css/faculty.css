@@ -1,0 +1,52 @@
+.sort-links {
+    padding: 1rem 0;
+
+    a {
+        text-decoration: none;
+    }
+}
+
+.faculty-template-container {
+    box-sizing: border-box;
+    display: flex;
+        flex-wrap: wrap;
+    
+    .faculty-template-card {
+        flex: 1 1 250px;
+        min-width: 0;
+        gap: 1rem;
+        font-size: 1rem;
+
+        img {
+            inline-size: 100px;
+        }
+        a{
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.faculty-container {
+    width: fit-content;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 0.75rem 1.5rem;
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .faculty-card {
+        p strong {
+            font-size: 1.1rem;
+        }
+        .go-back a {
+            width: 125px;
+            color: black;
+        }
+        .go-back a:visited {
+            color:rgb(209, 55, 206);
+        }
+    }
+}

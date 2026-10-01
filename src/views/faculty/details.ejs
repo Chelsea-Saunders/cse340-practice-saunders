@@ -1,6 +1,23 @@
-<!-- Faculty Detail Template (src/views/faculty/detail.ejs):
+ <%- include ('../partials/header') %>
+<main>
+    <div class="faculty-container">
+        <h1><%= title %></h1>
+        
+        <div class="faculty-card">
+            <!-- <h2><%= faculty.name %></h2> -->
+            <p><strong>Office:</strong> <%= faculty.office %> </p>
+            <p><strong>Phone:</strong> <%= faculty.phone %></p>
+            <p><strong>Email:</strong> <%= faculty.email %></p>
+            <p><strong>Department:</strong> <%= faculty.department %></p>
+            <p><strong>Title:</strong> <%= faculty.title %></p>
 
-Display detailed information about the faculty member
+            <p class="go-back"><a href="/faculty/ <%= faculty.id %>">Back to Faculty List</a></p>
+        </div>
+    </div>
+</main>
+<%- include('../partials/footer') %>
+
+<!-- Display detailed information about the faculty member
 Include name, office, phone, email, department, and title
 Provide a link back to the faculty list
 Follow the same styling patterns as your course detail pages -->

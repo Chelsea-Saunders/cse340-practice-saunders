@@ -1,12 +1,13 @@
 // Create src/controllers/faculty/faculty.js with route handlers for faculty list and detail pages. Follow the same pattern you used for the course controllers:
 
 // Import the faculty model functions
-import { getFacultyById, getSortedFaculty, } from "../../models/faculty/faculty";
+import { getFacultyById, getSortedFaculty, } from "../../models/catalog/faculty/faculty.js";
 // Create a facultyListPage function that renders the faculty list page
 const facultyListPage = (req, res) => {
-    const faculty = getSortedFaculty('name');
+    const sort = req.query.sort || 'name';
+    const faculty = getSortedFaculty(sort);
 
-    res.render('faculty', {
+    res.render('faculty/list', {
         title: 'Faculty List',
         faculty: faculty
     });
@@ -24,7 +25,7 @@ const facultyDetailPage = (req, res, next) => {
         return next(err);
     }
 
-    res.render('faculty-detail', {
+    res.render('faculty/details', {
         title: faculty.name,
         faculty: faculty
     });

@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, 'public'))); // tells Epxress, any c
 app.set('view engine', 'ejs');
 //tell Espress where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
+app.set('view engine', 'ejs');
 
 //GLOBAL MIDDLEWARE
 app.use(addLocalVariables);
@@ -35,19 +36,15 @@ app.use((req, res, next) => {
     next(err);
 });
 
-// //500 ERROR HANDLER
-// app.get('/test-error', (req, res, next) => {
-//     const err = new Error('This is a test error');
-//     err.status = 500;
-//     next(err);
-// });
-
 //GLOBAL ERROR HANDLING
 app.use((err, req, res, next) => {
     //prevent infinite loops, if a response has already been sent, do nothing
     if (res.headerSent || res.finish) {
         return next(err);
     }
+
+    // console.error(err);
+    console.error(`404 on: ${req.method} ${req.originalUrl}`);
 
     //Determine status and template
     const status = err.status || 500;

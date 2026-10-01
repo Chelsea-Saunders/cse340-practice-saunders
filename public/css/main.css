@@ -78,8 +78,11 @@ body {
 }
 footer {
     #copyright {
-        font-size: 0.8rem;
+        font-size: 10rem;
         color: black;
         text-align: right;
+    }
+    p {
+        font-size: 0.8rem;
     }
 }
