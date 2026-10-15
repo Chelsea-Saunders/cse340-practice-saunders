@@ -1,10 +1,12 @@
+import 'dotenv/config';
 // IMPORTS
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-import routes from './src/controllers/routes.js';
+import routes from './src/routes/routes.js';
 import { addLocalVariables } from './src/middleware/global.js';
+import { setupDatabase, testConnection } from './src/models/setup.js';
 
 //SERVER CONFIGURATION
 const __filename = fileURLToPath(import.meta.url);
@@ -91,6 +93,8 @@ if (NODE_ENV.includes('dev')) {
 }
 
 // START SERVER
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    await setupDatabase();
+    await testConnection();
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });

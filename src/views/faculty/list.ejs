@@ -15,17 +15,10 @@
                 <img src="/images/emoji.png"
                     alt="Image of <%= member.name %>">
 
-                <p><a href="/faculty/<%= member.id %>"><%= member.name %></a></p>
+                <p><a href="/faculty/<%= member.slug %>"><%= member.name %></a></p>
                 <p class="description"><%= member.title %> - <%= member.department %></p>
             </div>
         <% }) %>
     </div>
 </main>
 <%- include('../partials/footer') %>
-
-<!-- Faculty List Template (src/views/faculty/list.ejs):
-
-Display all faculty members in a grid or list format
-Make each faculty member's name link to their detail page
-Show basic information like name, department, and title
-Include proper navigation back to main site -->

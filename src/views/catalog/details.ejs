@@ -1,0 +1,47 @@
+<%- include('../partials/header') %>
+<main>
+    <div class="course-header">
+        <h1><%= course.courseCode %>: <%= course.name %></h1>
+        <div class="course-meta">
+            <p><strong>Department:</strong> <%= course.department %> </p> 
+            <p><strong>Credit Hours:</strong> <%= course.creditHours %> </p>
+        </div>
+        <p class="course-description"><%= course.description %></p>
+    </div>
+
+
+    <section class="sections-header">
+        <h2>Available Sections</h2>
+
+        <% if (sections && sections.length > 0) { %>
+            <table class="sections-table">
+                <thread>
+                    <tr>
+                        <th>Section / Course</th>
+                        <th>Instructor</th>
+                        <th>Time</th>
+                        <th>Room</th>
+                    </tr>
+                </thread>
+
+                <tbody>
+                    <% sections.forEach(section => { %>
+                        <tr>
+                            <td><%= section.courseCode %> - <%=section.courseName %></td>
+                            <td>
+                                <a href="/faculty/<%= section.professorSlug %>">
+                                    <%= section.professor %>
+                                </a>
+                            </td>
+                            <td><%= section.time %></td>
+                            <td><%= section.room %></td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+        <% } else { %>
+        <p>No sections currently available for this course.</p>
+        <% } %>
+    </section> 
+</main>
+<%- include('../partials/footer') %>

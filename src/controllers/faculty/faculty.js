@@ -1,34 +1,45 @@
-// Create src/controllers/faculty/faculty.js with route handlers for faculty list and detail pages. Follow the same pattern you used for the course controllers:
-
 // Import the faculty model functions
-import { getFacultyById, getSortedFaculty, } from "../../models/catalog/faculty/faculty.js";
+import { getFacultyBySlug, getSortedFaculty, } from "../../models/faculty/faculty.js";
 // Create a facultyListPage function that renders the faculty list page
-const facultyListPage = (req, res) => {
-    const sort = req.query.sort || 'name';
-    const faculty = getSortedFaculty(sort);
+const facultyListPage = async (req, res, next) => {
+    try {
+        const sort = req.query.sort || 'name';
+        const faculty = await getSortedFaculty(sort);
 
-    res.render('faculty/list', {
-        title: 'Faculty List',
-        faculty: faculty
-    });
+        console.log(`Faculty Data ${faculty} from model.`)
+
+        res.render('faculty/list', {
+            title: 'Faculty List',
+            faculty: faculty,
+            currentSort: sort
+        });
+    } catch (err) {
+        next(err);
+    }
 };
 
 // Create a facultyDetailPage function that uses route parameters to look up individual faculty
-const facultyDetailPage = (req, res, next) => {
-    const facultyId = req.params.facultyId;
-    const faculty = getFacultyById(facultyId);
+const facultyDetailPage = async (req, res, next) => {
+    try {
+        const facultySlug = req.params.slug || req.params.slugId;
+        const faculty = await getFacultyBySlug(facultySlug);
 
-    // Include proper error handling for invalid faculty IDs
-    if (!faculty) {
-        const err = new Error(`Faculty member ${facultyId} not found`);
-        err.status = 404;
-        return next(err);
+        console.log(`Faculty Data ${faculty} from model.`)
+
+        // Include proper error handling for invalid faculty IDs
+        if (!faculty) {
+            const err = new Error(`Faculty member ${facultySlug} not found`);
+            err.status = 404;
+            return next(err);
+        }
+
+        res.render('faculty/details', {
+            title: faculty.name,
+            faculty: faculty
+        });
+    } catch(err) {
+        next(err);
     }
-
-    res.render('faculty/details', {
-        title: faculty.name,
-        faculty: faculty
-    });
 };
 
 // Export both functions
