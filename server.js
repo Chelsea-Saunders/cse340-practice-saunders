@@ -7,6 +7,10 @@ import path from 'path';
 import routes from './src/routes/routes.js';
 import { addLocalVariables } from './src/middleware/global.js';
 import { setupDatabase, testConnection } from './src/models/setup.js';
+import { startSessionCleanup } from './src/utils/session-cleanup.js';
+
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
 
 //SERVER CONFIGURATION
 const __filename = fileURLToPath(import.meta.url);
@@ -17,13 +21,39 @@ const NODE_ENV = process.env.NODE_ENV || 'production';
 //SETUP EXPRESS SERVER
 const app = express();
 
+// INITIALIZE POSTGRESQL SESSION STORE
+const pgSession = connectPgSimple(session);
+
+//configure session middleware
+app.use(session({
+    store: new pgSession({
+        conObject: {
+            connectionString: process.env.DB_URL
+        },
+        tableName: 'session',
+        createTableIfMissing: true
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: NODE_ENV.includes('dev') !== true,
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}));
+
+startSessionCleanup();
+
 //CONFIGURE EXPRESS
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public'))); // tells Epxress, any code in public directory should be accessible through your website
+
 //set EJS as templating engine
 app.set('view engine', 'ejs');
 //tell Espress where to find your templates
 app.set('views', path.join(__dirname, 'src/views'));
-app.set('view engine', 'ejs');
 
 //GLOBAL MIDDLEWARE
 app.use(addLocalVariables);

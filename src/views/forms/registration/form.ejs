@@ -1,0 +1,49 @@
+<%- include('../../partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    <p>
+        Register for a new account by providing your information below. All fields are required and passwords must meet security requirements.
+    </p>
+
+    <form method="POST" action="/register" class="registration-form">
+        <!-- Name field -->
+        <div class="form-group">
+            <label for="name">Name</label>
+             <input type="text" id="name" name="name" minlength="2" placeholder="Your name" required>
+        </div>
+
+        <!-- Email field -->
+         <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+         </div>
+
+        <!-- Email confirmation field -->
+        <div class="form-group">
+            <label for="email-confirm">Confirm Email</label>
+            <input type="email" id="email-confirm" name="emailConfirm" required>
+        </div>
+
+        <!-- Password field -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"
+                minlength="8" required
+                pattern="(?=.*[0-9])(?=.*[!@#$%^&*]).*"
+                title="Must be at least 8 characters with a number and a special character">
+            <div class="help-text">Must be at least 8 characters with a number and a special character(!@#$%^&*).</div>
+        </div>
+
+        <!-- Password confirmation field -->
+            <div class="form-group">
+                <label for="password-confirm">Confirm Password</label>
+                <input type="password" id="password-confirm" name="passwordConfirm"
+                    minlength="8" required>
+            </div>
+
+        <!-- Submit button -->
+        <button type="submit">Create Account</button>
+        <!-- TODO: Add button type="submit" with text like "Create Account" -->
+    </form>
+</main>
+<%- include('../../partials/footer') %>
