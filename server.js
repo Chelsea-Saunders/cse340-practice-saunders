@@ -3,6 +3,7 @@ import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import flash from './src/middleware/flash.js';
 
 import routes from './src/routes/routes.js';
 import { addLocalVariables } from './src/middleware/global.js';
@@ -24,6 +25,21 @@ const app = express();
 // INITIALIZE POSTGRESQL SESSION STORE
 const pgSession = connectPgSimple(session);
 
+// app.post()
+
+startSessionCleanup();
+
+
+//CONFIGURE EXPRESS
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public'))); // tells Epxress, any code in public directory should be accessible through your website
+
+//set EJS as templating engine
+app.set('view engine', 'ejs');
+//tell Espress where to find your templates
+app.set('views', path.join(__dirname, 'src/views'));
+
 //configure session middleware
 app.use(session({
     store: new pgSession({
@@ -37,26 +53,23 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: {
-        secure: NODE_ENV.includes('dev') !== true,
+        secure: process.env.NODE_ENV === 'production',
+        // secure: NODE_ENV.includes('dev') !== true,
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
-startSessionCleanup();
 
-//CONFIGURE EXPRESS
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public'))); // tells Epxress, any code in public directory should be accessible through your website
 
-//set EJS as templating engine
-app.set('view engine', 'ejs');
-//tell Espress where to find your templates
-app.set('views', path.join(__dirname, 'src/views'));
+// FLASH
+app.use(flash);
 
 //GLOBAL MIDDLEWARE
 app.use(addLocalVariables);
+
+// ignore favicon
+app.get('/favicon.io', (req, res) => res.status(204).end());
 
 //ROUTER
 app.use('/', routes);
@@ -70,13 +83,16 @@ app.use((req, res, next) => {
 
 //GLOBAL ERROR HANDLING
 app.use((err, req, res, next) => {
+
+    console.error('SERVER ERROR CAUGHT:', err);
+
     //prevent infinite loops, if a response has already been sent, do nothing
-    if (res.headerSent || res.finish) {
+    if (res.headerSent) {
         return next(err);
     }
 
     // console.error(err);
-    console.error(`404 on: ${req.method} ${req.originalUrl}`);
+    // console.error(`404 on: ${req.method} ${req.originalUrl}`);
 
     //Determine status and template
     const status = err.status || 500;
@@ -94,11 +110,12 @@ app.use((err, req, res, next) => {
     res.status(status).render(`errors/${template}`, context, (renderErr, html) => {
         if (renderErr) {
             console.error('Render Error:', renderErr);
-            if(!res.headerSent) {
+            if(!res.headersSent) {
                 return res.status(status).send(`<h1>Error ${status}</h1><p>An error occured.</p>`);
             }
+        } else {
+            res.send(html);
         }
-        res.send(html);
     });
 });
 

@@ -68,7 +68,11 @@ const addLocalVariables = (req, res, next) => {
         res.locals.isLoggedIn = true;
     }
 
+    // FLASH MESSAGE FUNCTION
+    res.locals.flash = req.flash.bind(req);
+
     next();
 };
+
 
 export { addLocalVariables, setHeadAssetsFunctionality };

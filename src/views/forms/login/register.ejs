@@ -1,5 +1,5 @@
 <%- include('../../partials/header') %>
-<form method="POST" action="/register">
+<form method="POST" action="/register" novalidate>
     <% if (typeof errors !== 'undefined' && errors.length > 0) { %>
     <div class="error-summary">
         <h3>Please correct the following errors:</h3>

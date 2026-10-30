@@ -5,4 +5,20 @@
     <header>
         <%- include('nav') %>
     </header>
+    <% 
+    const getFlash = locals.flash || (typeof flash === 'function' ? flash : null);
+    const messages = getFlash ? getFlash() : { success: [], error: [], warning: [], info: [] };
+    const hasMessage = Object.values(messages).some(arr => arr.length > 0);
+    %>
+        <% if (hasMessage) { %>
+            <div class="flash-messages">
+                <% Object.keys(messages).forEach(type => { %>
+                    <% (messages[type] || []).forEach(message => { %>
+                        <div class="flash <%= type %>">
+                            <%= message %>
+                        </div> 
+                    <% }); %>
+                <% }); %>
+            </div>
+        <% } %>
 </body>
